@@ -1,6 +1,8 @@
 package org.example.linkedList;
 
-public class DoubleLinkedList implements LinkedList {
+import org.example.List;
+
+public class DoubleList implements List {
     public DoubleNode head = null;
     public DoubleNode tail = null;
     @Override

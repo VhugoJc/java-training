@@ -1,6 +1,8 @@
 package org.example.linkedList;
 
-public class SingleLinkedList implements LinkedList{
+import org.example.List;
+
+public class SingleList implements List {
     public Node head = null;
     public Node tail = null;
 
@@ -109,6 +111,6 @@ public class SingleLinkedList implements LinkedList{
     }
 
     public static void main(String[] args) {
-        SingleLinkedList list = new SingleLinkedList();
+        SingleList list = new SingleList();
     }
 }

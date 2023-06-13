@@ -1,6 +1,6 @@
-package org.example.linkedList;
+package org.example;
 
-public interface LinkedList {
+public interface List {
     public void add (int data);
     public void removeAll ();
     public void remove(int data);
