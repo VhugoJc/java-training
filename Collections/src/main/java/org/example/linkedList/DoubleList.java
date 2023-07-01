@@ -2,7 +2,9 @@ package org.example.linkedList;
 
 import org.example.List;
 
-public class DoubleList implements List {
+import java.util.Iterator;
+
+public class DoubleList implements List, Iterable<DoubleNode> {
     public DoubleNode head = null;
     public DoubleNode tail = null;
     @Override
@@ -104,21 +106,8 @@ public class DoubleList implements List {
         return size;
     }
 
-    public void print() {
-        DoubleNode currentNode = head;
-        if(currentNode==null) {
-            return;
-        }
-        System.out.print("[");
-        while (currentNode!=null) {
-            System.out.print(currentNode.getData()+" ");
-            currentNode = currentNode.getNext();
-        }
-        System.out.print("]");
-    }
-
-    public static void main(String[] args) {
-//        DoubleLinkedList list = new DoubleLinkedList();
-
+    @Override
+    public Iterator<DoubleNode> iterator() {
+        return new DoubleListIterator(head);
     }
 }

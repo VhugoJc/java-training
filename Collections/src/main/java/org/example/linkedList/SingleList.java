@@ -3,19 +3,19 @@ package org.example.linkedList;
 import org.example.List;
 
 public class SingleList implements List {
-    public Node head = null;
-    public Node tail = null;
+    public SingleNode head = null;
+    public SingleNode tail = null;
 
     @Override
     public void add (int data)  {
-        Node newNode  = new Node(data);
+        SingleNode newSingleNode = new SingleNode(data);
         if(head == null) {
-            head = newNode;
-            tail = newNode;
+            head = newSingleNode;
+            tail = newSingleNode;
             return;
         }
-        tail.setNext(newNode); //tail.next = newNode
-        tail = newNode;
+        tail.setNext(newSingleNode); //tail.next = newNode
+        tail = newSingleNode;
     }
     @Override
     public void removeAll () {
@@ -24,91 +24,92 @@ public class SingleList implements List {
     }
     @Override
     public void remove(int data) {
-        Node currentNode = head;
-        if(currentNode==null) { //if the linked list is empty
+        SingleNode currentSingleNode = head;
+        if(currentSingleNode ==null) { //if the linked list is empty
             return;
         }
-        if(currentNode.getData()==data) { // if the data is the head node
-            head = currentNode.getNext();
+        if(currentSingleNode.getData()==data) { // if the data is the head node
+            head = currentSingleNode.getNext();
             return;
         }
-        while (currentNode!=null) {
-            if(currentNode.getNext().getData()==data){
-                Node nextNode = currentNode.getNext().getNext();
-                if(nextNode==null){
-                    tail = currentNode;
+        while (currentSingleNode !=null) {
+            if(currentSingleNode.getNext().getData()==data){
+                SingleNode nextSingleNode = currentSingleNode.getNext().getNext();
+                if(nextSingleNode ==null){
+                    tail = currentSingleNode;
                 }
-                currentNode.setNext(nextNode);
+                currentSingleNode.setNext(nextSingleNode);
                 return;
             }
-            currentNode = currentNode.getNext();
+            currentSingleNode = currentSingleNode.getNext();
         }
     }
     @Override
     public void remove() {
-        Node currentNode = head;
-        if(currentNode==null){
+        SingleNode currentSingleNode = head;
+        if(currentSingleNode ==null){
             return;
         }
-        head = currentNode.getNext();
+        head = currentSingleNode.getNext();
     }
     @Override
     public void setAt (int position, int newData) {
-        Node currentNode = head;
-        if(currentNode == null) {
+        SingleNode currentSingleNode = head;
+        if(currentSingleNode == null) {
             return;
         }
         // get the node by position
-        for( int i =0; currentNode!=null && i<position; i++){
-            currentNode = currentNode.getNext();
+        for(int i = 0; currentSingleNode !=null && i<position; i++){
+            currentSingleNode = currentSingleNode.getNext();
         }
-        if(currentNode==null){ //avoid position error
+        if(currentSingleNode ==null){ //avoid position error
             return;
         }
-        currentNode.setData(newData); //set node data
+        currentSingleNode.setData(newData); //set node data
     }
     @Override
     public Integer getAt(int position) {
-        Node currentNode = head;
-        if(currentNode == null) {
+        SingleNode currentSingleNode = head;
+        if(currentSingleNode == null) {
             return null;
         }
         // get the node by position
-        for( int i =0; currentNode!=null && i<position; i++){
-            currentNode = currentNode.getNext();
+        for(int i = 0; currentSingleNode !=null && i<position; i++){
+            currentSingleNode = currentSingleNode.getNext();
         }
-        if(currentNode==null){ //avoid position error
+        if(currentSingleNode ==null){ //avoid position error
             return null;
         }
-        return currentNode.getData();
+        return currentSingleNode.getData();
     }
     @Override
     public int size () {
-        Node currentNode = head;
+        SingleNode currentSingleNode = head;
         int size = 0;
-        if(currentNode == null) {
+        if(currentSingleNode == null) {
             return size;
         }
-        while (currentNode!=null) {
+        while (currentSingleNode !=null) {
             size++;
-            currentNode=currentNode.getNext();
+            currentSingleNode = currentSingleNode.getNext();
         }
         return size;
     }
 
     public void print () {
-        Node currentNode = head;
-        if(currentNode==null){
+        SingleNode currentSingleNode = head;
+        if(currentSingleNode ==null){
             System.out.println("[]");
             return;
         }
         System.out.print("[");
-        while(currentNode!=null){
-            System.out.print(currentNode.getData()+" ");
-            currentNode = currentNode.getNext();
+        while(currentSingleNode !=null){
+            System.out.print(currentSingleNode.getData()+" ");
+            currentSingleNode = currentSingleNode.getNext();
         }
         System.out.println("]");
     }
+
 
     public static void main(String[] args) {
         SingleList list = new SingleList();

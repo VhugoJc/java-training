@@ -1,6 +1,6 @@
 package org.example.linkedList;
 
-class NodeData {
+class Node {
     private int data;
 
     public int getData() {
@@ -11,29 +11,28 @@ class NodeData {
         this.data = data;
     }
 
-    public NodeData(int data) {
+    public Node(int data) {
         this.data = data;
     }
 }
+class SingleNode extends Node {
+    private SingleNode next;
 
-class Node extends NodeData {
-    private Node next;
-
-    public Node(int data) {
+    public SingleNode(int data) {
         super(data);
         this.next = null;
     }
 
-    public Node getNext() {
+    public SingleNode getNext() {
         return next;
     }
 
-    public void setNext(Node next) {
+    public void setNext(SingleNode next) {
         this.next = next;
     }
 }
 
-class DoubleNode extends NodeData {
+class DoubleNode extends Node {
     private DoubleNode previous;
     private DoubleNode next;
     public DoubleNode (int data){
