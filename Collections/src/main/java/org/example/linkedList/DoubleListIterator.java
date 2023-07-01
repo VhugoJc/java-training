@@ -3,21 +3,21 @@ package org.example.linkedList;
 import java.util.Iterator;
 
 public class DoubleListIterator implements Iterator<DoubleNode> {
-    private DoubleNode list;
+    private DoubleNode node;
 
-    public DoubleListIterator(DoubleNode list) {
-        this.list = list;
+    public DoubleListIterator(DoubleNode head) {
+        this.node = head;
     }
 
     @Override
     public boolean hasNext() {
-        return list!=null;
+        return node!=null;
     }
 
     @Override
     public DoubleNode next() {
-        DoubleNode current = list;
-        list = list.getNext();
+        DoubleNode current = node;
+        node = node.getNext();
         return current;
     }
 }

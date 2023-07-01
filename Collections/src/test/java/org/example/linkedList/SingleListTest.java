@@ -4,6 +4,9 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.Iterator;
+
 public class SingleListTest {
     @Test
     @DisplayName("Add Node to Linked List")
@@ -33,5 +36,18 @@ public class SingleListTest {
         list.add(10);
         list.removeAll();
         Assertions.assertEquals(0, list.size());
+    }
+    @Test
+    @DisplayName("Iterator")
+    public void testIterator () {
+        SingleList list = new SingleList();
+        list.add(33);
+        list.add(6);
+        list.add(8);
+        list.add(11);
+        Iterator<SingleNode> it = list.iterator();
+        while (it.hasNext()){
+            System.out.println(it.next().getData());
+        }
     }
 }

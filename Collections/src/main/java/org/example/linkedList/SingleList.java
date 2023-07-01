@@ -2,7 +2,9 @@ package org.example.linkedList;
 
 import org.example.List;
 
-public class SingleList implements List {
+import java.util.Iterator;
+
+public class SingleList implements List, Iterable {
     public SingleNode head = null;
     public SingleNode tail = null;
 
@@ -113,5 +115,10 @@ public class SingleList implements List {
 
     public static void main(String[] args) {
         SingleList list = new SingleList();
+    }
+
+    @Override
+    public Iterator<SingleNode> iterator() {
+        return new SingleListIterator(head);
     }
 }
