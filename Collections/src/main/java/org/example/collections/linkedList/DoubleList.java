@@ -66,24 +66,29 @@ public class DoubleList implements List { // nested class
     @Override
     public void remove(int data) {
         Node currentNode = head;
-        if(currentNode==null) {
-            return;
-        }
-        if(currentNode.data==data){
+        if(currentNode.data==data){ //first node
+            if(size==1){
+                head = null;
+                tail = null;
+                size = 0;
+                return;
+            }
             currentNode.next.previous = null;
             head = currentNode.next;
+            size--;
             return;
         }
         while (currentNode!=null){
             if(currentNode.data==data){
-                if(currentNode.next==null){
+                if(currentNode.next==null){ //last node
+
                     currentNode.previous.next = null;
                     tail = currentNode.previous;
                 }else{
                      currentNode.previous.next = currentNode.next;
                     currentNode.next.previous = currentNode.previous;
                 }
-
+                size--;
                 return;
             }
             currentNode = currentNode.next;
@@ -94,9 +99,7 @@ public class DoubleList implements List { // nested class
     @Override
     public void setAt(int position, int newData) {
         Node currentNode = head;
-        if(currentNode==null){
-            return;
-        }
+
         for(int i = 0; currentNode != null && i <position; i++){
             currentNode = currentNode.next;
         }
@@ -109,15 +112,12 @@ public class DoubleList implements List { // nested class
     @Override
     public Integer getAt(int position) {
         Node currentNode = head;
-        if(currentNode==null){
-            return null;
-        }
+
         for(int i = 0; currentNode != null && i <position; i++){
             currentNode = currentNode.next;
         }
-        if(currentNode==null){
-            return null;
-        }
+
+        assert currentNode != null; // exception here
         return currentNode.data;
     }
 
