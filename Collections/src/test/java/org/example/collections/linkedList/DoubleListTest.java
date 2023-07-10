@@ -9,7 +9,7 @@ public class DoubleListTest {
     @Test
     public void testAddNodes() {
         //Arrange
-        DoubleList list = new DoubleList();
+        DoubleList<Integer> list = new DoubleList<> ();
         list.add(8);
         list.add(10);
         list.add(1);
@@ -26,16 +26,16 @@ public class DoubleListTest {
     @Test
     public void testDeleteNode() {
         // arrange
-        DoubleList list = new DoubleList();
-        list.add(8);
-        list.add(10);
-        list.add(1);
-        list.add(7);
+        DoubleList<String> list = new DoubleList<>();
+        list.add("APPLE");
+        list.add("BANANA");
+        list.add("WATERMELON");
+        list.add("ORANGE");
         // act
-        list.remove(10);
-        list.remove(8);
-        list.remove(7);
-        list.remove(1);
+        list.remove("BANANA");
+        list.remove("APPLE");
+        list.remove("ORANGE");
+        list.remove("WATERMELON");
         // assert
         Assertions.assertEquals(0,list.size());
     }
@@ -43,11 +43,11 @@ public class DoubleListTest {
     @Test
     public void testDeleteAllNodes(){
         // arrange
-        DoubleList list = new DoubleList();
-        list.add(8);
-        list.add(10);
-        list.add(1);
-        list.add(7);
+        DoubleList<Double> list = new DoubleList<>();
+        list.add(8.01999);
+        list.add(10.1299);
+        list.add(1.32999);
+        list.add(7.81999);
         // act
         list.removeAll();
         // assert
@@ -56,26 +56,26 @@ public class DoubleListTest {
     @Test
     public void testSetGetNode() {
         // arrange
-        DoubleList list = new DoubleList();
-        list.add(8);
-        list.add(10);
-        list.add(1);
-        list.add(7);
+        DoubleList<Float> list = new DoubleList<>();
+        list.add(8.5f);
+        list.add(10.0f);
+        list.add(1.03f);
+        list.add(7.51f);
         // act
-        list.setAt(1,11);
+        list.setAt(1,11f);
         // assert
-        Assertions.assertEquals(11,(int)list.getAt(1));
+        Assertions.assertEquals(11f,(float)list.getAt(1));
     }
     @Test
     public void testIterator() {
         // arrange
-        DoubleList list = new DoubleList();
+        DoubleList<Integer> list = new DoubleList<Integer>();
         list.add(8);
         list.add(10);
         list.add(1);
         list.add(7);
         // act
-        Iterator it = list.iterator();
+        Iterator<?> it = list.iterator();
         // assert
         Assertions.assertEquals(4,list.size());
         Assertions.assertTrue(it.hasNext());
