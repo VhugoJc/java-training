@@ -27,11 +27,14 @@ public class DoubleListTest {
     public void testDeleteNode() {
         // arrange
         DoubleList<String> list = new DoubleList<>();
+        list.remove(null);
+
         list.add("APPLE");
         list.add("BANANA");
         list.add("WATERMELON");
         list.add("ORANGE");
         // act
+
         list.remove("BANANA");
         list.remove("APPLE");
         list.remove("ORANGE");
@@ -64,12 +67,14 @@ public class DoubleListTest {
         // act
         list.setAt(1,11f);
         // assert
+        Assertions.assertNull(list.getAt(11));  //Null Pointer Exception
         Assertions.assertEquals(11f,(float)list.getAt(1));
+
     }
     @Test
     public void testIterator() {
         // arrange
-        DoubleList<Integer> list = new DoubleList<Integer>();
+        DoubleList<Integer> list = new DoubleList<>();
         list.add(8);
         list.add(10);
         list.add(1);
@@ -87,5 +92,9 @@ public class DoubleListTest {
         Assertions.assertTrue(it.hasNext());
         Assertions.assertEquals(7,it.next());
         Assertions.assertFalse(it.hasNext());
+
+        Assertions.assertNull(it.next()); // NullPointerException
+        Assertions.assertFalse(it.hasNext());
+
     }
 }

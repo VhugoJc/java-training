@@ -35,15 +35,20 @@ public class DoubleList<E> implements List<E> { // nested class
 
         @Override
         public E next() {
+            try {
             Node<E> current = node;
             node = node.next;
             return current.data;
+            }catch (NullPointerException npe){
+                System.out.println("next method: "+npe);
+            }
+            return null;
         }
     }
 
     @Override
     public void add(E data) {
-        Node<E> newNode = new Node<E>(data);
+        Node<E> newNode = new Node<>(data);
         if(head==null) {
             head = newNode;
             tail = newNode;
@@ -65,34 +70,38 @@ public class DoubleList<E> implements List<E> { // nested class
 
     @Override
     public void remove(E data) {
-        Node<E> currentNode = head;
-        if(currentNode.data==data){ //first node
-            if(size==1){
-                head = null;
-                tail = null;
-                size = 0;
-                return;
-            }
-            currentNode.next.previous = null;
-            head = currentNode.next;
-            size--;
-            return;
-        }
-        while (currentNode!=null){
-            if(currentNode.data==data){
-                if(currentNode.next==null){ //last node
+       try{
+           Node<E> currentNode = head;
+           if(currentNode.data==data){ //first node
+               if(size==1){
+                   head = null;
+                   tail = null;
+                   size = 0;
+                   return;
+               }
+               currentNode.next.previous = null;
+               head = currentNode.next;
+               size--;
+               return;
+           }
+           while (currentNode!=null){
+               if(currentNode.data==data){
+                   if(currentNode.next==null){ //last node
 
-                    currentNode.previous.next = null;
-                    tail = currentNode.previous;
-                }else{
-                     currentNode.previous.next = currentNode.next;
-                    currentNode.next.previous = currentNode.previous;
-                }
-                size--;
-                return;
-            }
-            currentNode = currentNode.next;
-        }
+                       currentNode.previous.next = null;
+                       tail = currentNode.previous;
+                   }else{
+                       currentNode.previous.next = currentNode.next;
+                       currentNode.next.previous = currentNode.previous;
+                   }
+                   size--;
+                   return;
+               }
+               currentNode = currentNode.next;
+           }
+       }catch (NullPointerException npe){
+           System.out.println("remove method: "+npe);
+       }
     }
 
 
@@ -111,14 +120,19 @@ public class DoubleList<E> implements List<E> { // nested class
 
     @Override
     public E getAt(int position) {
-        Node<E> currentNode = head;
+        E value = null;
+        try{
+            Node<E> currentNode = head;
 
-        for(int i = 0; currentNode != null && i <position; i++){
-            currentNode = currentNode.next;
+            for(int i = 0; currentNode != null && i <position; i++){
+                currentNode = currentNode.next;
+            }
+                value = currentNode.data;
+
+        }catch (NullPointerException npe){
+            System.out.println("getAt method: "+npe);
         }
-
-        assert currentNode != null; // exception here
-        return (E) currentNode.data;
+        return value;
     }
 
     @Override
