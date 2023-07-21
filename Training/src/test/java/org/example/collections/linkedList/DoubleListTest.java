@@ -1,6 +1,7 @@
 package org.example.collections.linkedList;
 
 import org.example.collections.Iterator;
+import org.example.collections.NotNullAllowedException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -24,10 +25,10 @@ public class DoubleListTest {
     }
 
     @Test
-    public void testDeleteNode() {
+    public void testDeleteNode() throws NotNullAllowedException {
         // arrange
         DoubleList<String> list = new DoubleList<>();
-        list.remove(null);
+//        list.remove(null); // NullPointerException checked vs unchecked
 
         list.add("APPLE");
         list.add("BANANA");

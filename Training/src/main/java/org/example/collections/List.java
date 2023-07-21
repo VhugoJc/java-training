@@ -1,11 +1,11 @@
 package org.example.collections;
 
-public interface List <E>{
-    public void add (E data);
+public interface List <T>{
+    public void add (T data);
     public void removeAll ();
-    public void remove(E data);
-    public void setAt (int position, E newData);
-    public E getAt(int position);
+    public void remove(T data) throws NotNullAllowedException;
+    public void setAt (int position, T newData);
+    public T getAt(int position);
     public int size ();
-    public Iterator<E> iterator();
+    public Iterator<T> iterator();
 }

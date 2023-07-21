@@ -2,18 +2,19 @@ package org.example.collections.linkedList;
 
 import org.example.collections.Iterator;
 import org.example.collections.List;
+import org.example.collections.NotNullAllowedException;
 
 public class DoubleList<E> implements List<E> { // nested class
     private Node<E> head = null;
     private Node<E> tail = null;
     private int size = 0;
 
-    private static class Node <E>{ // static nested class
-        Node<E> previous;
-        Node<E> next;
-        E data;
+    private static class Node <F>{ // static nested class
+        Node<F> previous;
+        Node<F> next;
+        F data;
 
-        public Node(E data){
+        public Node(F data){
             previous = null;
             next = null;
             this.data = data;
@@ -69,8 +70,10 @@ public class DoubleList<E> implements List<E> { // nested class
     }
 
     @Override
-    public void remove(E data) {
-       try{
+    public void remove(E data) throws NotNullAllowedException {
+        if(data==null){
+            throw new NotNullAllowedException();
+        }
            Node<E> currentNode = head;
            if(currentNode.data==data){ //first node
                if(size==1){
@@ -99,9 +102,6 @@ public class DoubleList<E> implements List<E> { // nested class
                }
                currentNode = currentNode.next;
            }
-       }catch (NullPointerException npe){
-           System.out.println("remove method: "+npe);
-       }
     }
 
 

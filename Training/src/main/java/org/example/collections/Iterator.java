@@ -1,6 +1,6 @@
 package org.example.collections;
 
-public interface Iterator <E> {
+public interface Iterator <H> {
     boolean hasNext();
-    E next();
+    H next();
 }
