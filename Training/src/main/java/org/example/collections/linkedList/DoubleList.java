@@ -70,7 +70,7 @@ public class DoubleList<E> implements List<E> { // nested class
     @Override
     public void remove(E data) throws NotNullAllowedException {
         if(data==null){
-            throw new NotNullAllowedException("NotNullAllowedException: cannot remove null element ");
+            throw new NotNullAllowedException("NotNullAllowedException: cannot remove element because is null");
         }
            Node<E> currentNode = head;
            if(currentNode.data==data){ //first node
