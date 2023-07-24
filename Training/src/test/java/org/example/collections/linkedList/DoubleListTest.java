@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class DoubleListTest {
     // AAA Pattern Arrange, Act, Asser
     @Test
-    public void testAddNodes() {
+    public void testAddNodes() throws NotNullAllowedException {
         //Arrange
         DoubleList<Integer> list = new DoubleList<> ();
         list.add(8);
@@ -18,10 +18,10 @@ public class DoubleListTest {
         // Act
         // Assert
         Assertions.assertEquals(4,list.size());
-        Assertions.assertEquals(8,(int)list.getAt(0));
+        Assertions.assertEquals(8, (int)list.getAt(0));
         Assertions.assertEquals(10,(int)list.getAt(1));
-        Assertions.assertEquals(1,(int)list.getAt(2));
-        Assertions.assertEquals(7,(int)list.getAt(3));
+        Assertions.assertEquals(1, (int)list.getAt(2));
+        Assertions.assertEquals(7, (int)list.getAt(3));
     }
 
     @Test
@@ -29,6 +29,7 @@ public class DoubleListTest {
         // arrange
         DoubleList<String> list = new DoubleList<>();
 //        list.remove(null); // NullPointerException checked vs unchecked
+
 
         list.add("APPLE");
         list.add("BANANA");
@@ -42,6 +43,7 @@ public class DoubleListTest {
         list.remove("WATERMELON");
         // assert
         Assertions.assertEquals(0,list.size());
+        Assertions.assertThrows(NotNullAllowedException.class, () -> list.remove(null)); // null pointer exception
     }
 
     @Test
@@ -58,7 +60,7 @@ public class DoubleListTest {
         Assertions.assertEquals(0,list.size());
     }
     @Test
-    public void testSetGetNode() {
+    public void testSetGetNode() throws NotNullAllowedException {
         // arrange
         DoubleList<Float> list = new DoubleList<>();
         list.add(8.5f);
@@ -68,12 +70,12 @@ public class DoubleListTest {
         // act
         list.setAt(1,11f);
         // assert
-        Assertions.assertNull(list.getAt(11));  //Null Pointer Exception
+        Assertions.assertThrows(NotNullAllowedException.class,() -> list.getAt(11)); //Null Pointer Exception
         Assertions.assertEquals(11f,(float)list.getAt(1));
 
     }
     @Test
-    public void testIterator() {
+    public void testIterator() throws NotNullAllowedException {
         // arrange
         DoubleList<Integer> list = new DoubleList<>();
         list.add(8);
@@ -94,7 +96,7 @@ public class DoubleListTest {
         Assertions.assertEquals(7,it.next());
         Assertions.assertFalse(it.hasNext());
 
-        Assertions.assertNull(it.next()); // NullPointerException
+        Assertions.assertThrows(NotNullAllowedException.class, () -> it.next()); // NullPointerException
         Assertions.assertFalse(it.hasNext());
 
     }

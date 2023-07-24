@@ -35,15 +35,13 @@ public class DoubleList<E> implements List<E> { // nested class
         }
 
         @Override
-        public E next() {
-            try {
+        public E next() throws NotNullAllowedException {
             Node<E> current = node;
+            if(current == null){
+                throw new NotNullAllowedException("NotNullAllowedException:Cannot read field 'next' because the node is null");
+            }
             node = node.next;
             return current.data;
-            }catch (NullPointerException npe){
-                System.out.println("next method: "+npe);
-            }
-            return null;
         }
     }
 
@@ -72,7 +70,7 @@ public class DoubleList<E> implements List<E> { // nested class
     @Override
     public void remove(E data) throws NotNullAllowedException {
         if(data==null){
-            throw new NotNullAllowedException();
+            throw new NotNullAllowedException("NotNullAllowedException: cannot remove null element ");
         }
            Node<E> currentNode = head;
            if(currentNode.data==data){ //first node
@@ -119,20 +117,15 @@ public class DoubleList<E> implements List<E> { // nested class
     }
 
     @Override
-    public E getAt(int position) {
-        E value = null;
-        try{
-            Node<E> currentNode = head;
-
-            for(int i = 0; currentNode != null && i <position; i++){
-                currentNode = currentNode.next;
-            }
-                value = currentNode.data;
-
-        }catch (NullPointerException npe){
-            System.out.println("getAt method: "+npe);
+    public E getAt(int position) throws NotNullAllowedException {
+        Node<E> currentNode = head;
+        for(int i = 0; currentNode != null && i <position; i++){
+            currentNode = currentNode.next;
         }
-        return value;
+        if(currentNode == null){
+            throw new NotNullAllowedException("NotNullAllowedException: getAt in position "+position+" is Null");
+        }
+        return  currentNode.data;
     }
 
     @Override

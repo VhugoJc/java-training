@@ -5,7 +5,7 @@ public interface List <T>{
     public void removeAll ();
     public void remove(T data) throws NotNullAllowedException;
     public void setAt (int position, T newData);
-    public T getAt(int position);
+    public T getAt(int position) throws NotNullAllowedException;
     public int size ();
     public Iterator<T> iterator();
 }
