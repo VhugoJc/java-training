@@ -36,12 +36,13 @@ public class DoubleList<E> implements List<E> { // nested class
 
         @Override
         public E next() throws NotNullAllowedException {
-            Node<E> current = node;
-            if(current == null){
-                throw new NotNullAllowedException("NotNullAllowedException:Cannot read field 'next' because the node is null");
+            try {
+                Node<E> current = node;
+                node = node.next;
+                return current.data;
+            }catch (NullPointerException ex){
+                throw new NotNullAllowedException("next method: there is not next element", ex);
             }
-            node = node.next;
-            return current.data;
         }
     }
 
@@ -69,37 +70,39 @@ public class DoubleList<E> implements List<E> { // nested class
 
     @Override
     public void remove(E data) throws NotNullAllowedException {
-        if(data==null){
-            throw new NotNullAllowedException("NotNullAllowedException: cannot remove element because is null");
-        }
-           Node<E> currentNode = head;
-           if(currentNode.data==data){ //first node
-               if(size==1){
-                   head = null;
-                   tail = null;
-                   size = 0;
-                   return;
-               }
-               currentNode.next.previous = null;
-               head = currentNode.next;
-               size--;
-               return;
-           }
-           while (currentNode!=null){
-               if(currentNode.data==data){
-                   if(currentNode.next==null){ //last node
+        try{
+            Node<E> currentNode = head;
+            if(currentNode.data==data){ //first node
+                if(size==1){
+                    head = null;
+                    tail = null;
+                    size = 0;
+                    return;
+                }
+                currentNode.next.previous = null;
+                head = currentNode.next;
+                size--;
+                return;
+            }
+            while (currentNode!=null){
+                if(currentNode.data==data){
+                    if(currentNode.next==null){ //last node
 
-                       currentNode.previous.next = null;
-                       tail = currentNode.previous;
-                   }else{
-                       currentNode.previous.next = currentNode.next;
-                       currentNode.next.previous = currentNode.previous;
-                   }
-                   size--;
-                   return;
-               }
-               currentNode = currentNode.next;
-           }
+                        currentNode.previous.next = null;
+                        tail = currentNode.previous;
+                    }else{
+                        currentNode.previous.next = currentNode.next;
+                        currentNode.next.previous = currentNode.previous;
+                    }
+                    size--;
+                    return;
+                }
+                currentNode = currentNode.next;
+            }
+        }catch (NullPointerException ex){
+            throw new NotNullAllowedException("remove method: the data is null", ex);
+        }
+
     }
 
 
@@ -119,13 +122,14 @@ public class DoubleList<E> implements List<E> { // nested class
     @Override
     public E getAt(int position) throws NotNullAllowedException {
         Node<E> currentNode = head;
-        for(int i = 0; currentNode != null && i <position; i++){
-            currentNode = currentNode.next;
+        try{
+            for(int i = 0; currentNode != null && i <position; i++){
+                currentNode = currentNode.next;
+            }
+            return  currentNode.data;
+        }catch (NullPointerException ex){
+            throw new NotNullAllowedException("getAt method: position "+position+" doesn't exist", ex);
         }
-        if(currentNode == null){
-            throw new NotNullAllowedException("NotNullAllowedException: getAt in position "+position+" is Null");
-        }
-        return  currentNode.data;
     }
 
     @Override

@@ -6,12 +6,12 @@ import org.example.collections.linkedList.DoubleList;
 public class Main {
 
     public static void main(String[] args) { // throws NotNullAllowedException
-        List<String> newList = new DoubleList<>();
-        try {
-            newList.remove(null);
-        } catch (NotNullAllowedException e) {
-//          throw new RuntimeException(e);
-            System.out.println("####");
-        }
+//        List<String> newList = new DoubleList<>();
+//        try {
+//            newList.getAt(4);
+//        } catch (NotNullAllowedException e) {
+//            System.out.println(e.getMessage());
+//            throw new RuntimeException(e);
+//        }
     }
 }
