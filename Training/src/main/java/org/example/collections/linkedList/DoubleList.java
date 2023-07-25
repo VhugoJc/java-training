@@ -48,6 +48,9 @@ public class DoubleList<E> implements List<E> { // nested class
 
     @Override
     public void add(E data) {
+        if(data==null){
+            throw new NotNullAllowedException("");
+        }
         Node<E> newNode = new Node<>(data);
         if(head==null) {
             head = newNode;
@@ -69,9 +72,14 @@ public class DoubleList<E> implements List<E> { // nested class
     }
 
     @Override
-    public void remove(E data) throws NotNullAllowedException {
-        try{
+    public void remove(E data)  {
+            if(data==null){
+                throw new NotNullAllowedException("remove method: the data is null");
+            }
             Node<E> currentNode = head;
+            if(currentNode==null){
+                return;
+            }
             if(currentNode.data==data){ //first node
                 if(size==1){
                     head = null;
@@ -87,7 +95,6 @@ public class DoubleList<E> implements List<E> { // nested class
             while (currentNode!=null){
                 if(currentNode.data==data){
                     if(currentNode.next==null){ //last node
-
                         currentNode.previous.next = null;
                         tail = currentNode.previous;
                     }else{
@@ -99,10 +106,6 @@ public class DoubleList<E> implements List<E> { // nested class
                 }
                 currentNode = currentNode.next;
             }
-        }catch (NullPointerException ex){
-            throw new NotNullAllowedException("remove method: the data is null", ex);
-        }
-
     }
 
 
@@ -120,13 +123,18 @@ public class DoubleList<E> implements List<E> { // nested class
     }
 
     @Override
-    public E getAt(int position) throws NotNullAllowedException {
+    public E getAt(int position) {
+        if(position < size){
+            throw new IndexOutOfBoundsException(position+" is invalid");
+        }
+
         Node<E> currentNode = head;
         try{
             for(int i = 0; currentNode != null && i <position; i++){
                 currentNode = currentNode.next;
             }
             return  currentNode.data;
+
         }catch (NullPointerException ex){
             throw new NotNullAllowedException("getAt method: position "+position+" doesn't exist", ex);
         }
