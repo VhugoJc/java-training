@@ -49,7 +49,7 @@ public class DoubleList<E> implements List<E> { // nested class
     @Override
     public void add(E data) {
         if(data==null){
-            throw new NotNullAllowedException("");
+            throw new NotNullAllowedException("null value is invalid");
         }
         Node<E> newNode = new Node<>(data);
         if(head==null) {
@@ -124,7 +124,7 @@ public class DoubleList<E> implements List<E> { // nested class
 
     @Override
     public E getAt(int position) {
-        if(position < size){
+        if(position > size){
             throw new IndexOutOfBoundsException(position+" is invalid");
         }
 

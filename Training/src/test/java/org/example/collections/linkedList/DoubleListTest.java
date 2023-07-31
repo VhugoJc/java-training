@@ -70,7 +70,7 @@ public class DoubleListTest {
         // act
         list.setAt(1,11f);
         // assert
-        Assertions.assertThrows(NotNullAllowedException.class,() -> list.getAt(11)); //Null Pointer Exception
+        Assertions.assertThrows(IndexOutOfBoundsException.class,() -> list.getAt(11)); //Null Pointer Exception
         Assertions.assertEquals(11f,(float)list.getAt(1));
 
     }
