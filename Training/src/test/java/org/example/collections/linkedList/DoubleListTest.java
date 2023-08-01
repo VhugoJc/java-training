@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class DoubleListTest {
     // AAA Pattern Arrange, Act, Asser
     @Test
-    public void testAddNodes() throws NotNullAllowedException {
+    public void testAddNodes() {
         //Arrange
         DoubleList<Integer> list = new DoubleList<> ();
         list.add(8);
@@ -26,12 +26,9 @@ public class DoubleListTest {
     }
 
     @Test
-    public void testDeleteNode() throws NotNullAllowedException {
+    public void testDeleteNode()  {
         // arrange
         DoubleList<String> list = new DoubleList<>();
-//        list.remove(null); // NullPointerException checked vs unchecked
-
-
         list.add("APPLE");
         list.add("BANANA");
         list.add("WATERMELON");
@@ -61,7 +58,7 @@ public class DoubleListTest {
         Assertions.assertEquals(0,list.size());
     }
     @Test
-    public void testSetGetNode() throws NotNullAllowedException {
+    public void testSetGetNode()  {
         // arrange
         DoubleList<Float> list = new DoubleList<>();
         list.add(8.5f);
@@ -77,7 +74,7 @@ public class DoubleListTest {
         Assertions.assertThrows(NotNullAllowedException.class,   () -> list.setAt(0,null));
     }
     @Test
-    public void testIterator() throws NotNullAllowedException {
+    public void testIterator()  {
         // arrange
         DoubleList<Integer> list = new DoubleList<>();
         list.add(8);

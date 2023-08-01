@@ -6,22 +6,17 @@ import org.example.collections.List;
 import org.example.collections.NotNullAllowedException;
 
 import java.lang.reflect.Array;
-import java.util.Arrays;
 
 public class ArrayList <E> implements List<E> {
     private E[] array;
     private int size;
     private final Class<E> genericClass;
-
     private  class ArrayListIterator implements Iterator<E> {
         private int index = 0;
-
-
         @Override
         public boolean hasNext() {
             return index<size;
         }
-
         @Override
         public E next()  {
             return array[index++];
@@ -45,8 +40,8 @@ public class ArrayList <E> implements List<E> {
         if(data==null){
             throw new NotNullAllowedException();
         }
+
         if(size==array.length){ //increase the array
-            @SuppressWarnings("unchecked")
             E [] newArray = (E[]) Array.newInstance(genericClass,array.length*2); // auxiliary array
             int i=0 ;
             while (i<array.length) { // fill the array with old values
@@ -65,38 +60,36 @@ public class ArrayList <E> implements List<E> {
     }
 
     @Override
-    public void remove(E data)  {
+    public void remove(E data) {
         if (data == null) {
             throw new NotNullAllowedException();
         }
-        if(size==0){
+        if(size==0) {
             return;
         }
-        for(int i=0; i<size; i++){
-            if(array[i] == data){
-                for(int j=i; j<size-1; j ++){
+        for(int i=0; i<size; i++) {
+            if(array[i] == data) {
+                for(int j=i; j<size-1; j ++) {
                     array[j] = array [j+1];
                 }
                 array[size-1] = null;
                 size--;
             }
         }
-        // decrease the array
-        if(array.length/2 == size){
+        if(array.length/2==size && size>= 4) {
             int arrayLength = array.length/2;
-            @SuppressWarnings("unchecked")
             E [] newArray = (E[]) Array.newInstance(genericClass,arrayLength); // auxiliary array
-            int i=0 ;
-            while (i<arrayLength) { // fill the array with old values
-                newArray[i]=array[i];
-                i++;
+            int i=0;
+            while (i<arrayLength) { //fill the array with old values
+                newArray[i]=array[i++];
             }
             array = newArray; // replace with the bigger array
         }
     }
 
     @Override
-    public void setAt(int position, E newData) {
+    public void setAt(int position, E newData)
+    {
         if(newData==null){
             throw new NotNullAllowedException();
         }
@@ -107,8 +100,10 @@ public class ArrayList <E> implements List<E> {
     }
 
     @Override
-    public E getAt(int position) {
-        if(position >= size || position < 0){
+    public E getAt(int position)
+    {
+        if(position >= size || position < 0)
+        {
             throw new IndexOutOfBoundsException();
         }
         return array[position];
@@ -123,5 +118,4 @@ public class ArrayList <E> implements List<E> {
     public Iterator<E> iterator() {
         return new ArrayListIterator();
     }
-
 }
