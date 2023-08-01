@@ -111,8 +111,14 @@ public class DoubleList<E> implements List<E> { // nested class
 
     @Override
     public void setAt(int position, E newData) {
-        Node<E> currentNode = head;
 
+        if(newData==null){
+            throw new NotNullAllowedException("remove method: the data is null");
+        }
+        if(position > size){
+            throw new IndexOutOfBoundsException(position+" is invalid");
+        }
+        Node<E> currentNode = head;
         for(int i = 0; currentNode != null && i <position; i++){
             currentNode = currentNode.next;
         }
@@ -124,20 +130,14 @@ public class DoubleList<E> implements List<E> { // nested class
 
     @Override
     public E getAt(int position) {
-        if(position > size){
+        if(position >= size || position<0){
             throw new IndexOutOfBoundsException(position+" is invalid");
         }
-
         Node<E> currentNode = head;
-        try{
-            for(int i = 0; currentNode != null && i <position; i++){
-                currentNode = currentNode.next;
-            }
-            return  currentNode.data;
-
-        }catch (NullPointerException ex){
-            throw new NotNullAllowedException("getAt method: position "+position+" doesn't exist", ex);
+        for(int i = 0; currentNode != null && i <position; i++){
+            currentNode = currentNode.next;
         }
+        return  currentNode.data;
     }
 
     @Override

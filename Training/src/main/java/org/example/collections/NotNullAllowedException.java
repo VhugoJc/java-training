@@ -8,6 +8,10 @@ public class NotNullAllowedException extends RuntimeException{
     public NotNullAllowedException(String message) {
         super(message);
     }
+
+    public NotNullAllowedException() {
+
+    }
 }
 
 /*

@@ -22,6 +22,7 @@ public class DoubleListTest {
         Assertions.assertEquals(10,(int)list.getAt(1));
         Assertions.assertEquals(1, (int)list.getAt(2));
         Assertions.assertEquals(7, (int)list.getAt(3));
+        Assertions.assertThrows(NotNullAllowedException.class, () -> list.add(null));
     }
 
     @Test
@@ -70,9 +71,10 @@ public class DoubleListTest {
         // act
         list.setAt(1,11f);
         // assert
-        Assertions.assertThrows(IndexOutOfBoundsException.class,() -> list.getAt(11)); //Null Pointer Exception
         Assertions.assertEquals(11f,(float)list.getAt(1));
-
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.getAt(11)); //Null Pointer Exception
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> list.setAt(5,12f));
+        Assertions.assertThrows(NotNullAllowedException.class,   () -> list.setAt(0,null));
     }
     @Test
     public void testIterator() throws NotNullAllowedException {
