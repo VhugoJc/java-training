@@ -41,7 +41,7 @@ public class DoubleList<E> implements List<E> { // nested class
                 node = node.next;
                 return current.data;
             }catch (NullPointerException ex){
-                throw new NotNullAllowedException("next method: there is not next element", ex);
+                throw new NotNullAllowedException();
             }
         }
     }
@@ -49,7 +49,7 @@ public class DoubleList<E> implements List<E> { // nested class
     @Override
     public void add(E data) {
         if(data==null){
-            throw new NotNullAllowedException("null value is invalid");
+            throw new NotNullAllowedException();
         }
         Node<E> newNode = new Node<>(data);
         if(head==null) {
@@ -74,7 +74,7 @@ public class DoubleList<E> implements List<E> { // nested class
     @Override
     public void remove(E data)  {
             if(data==null){
-                throw new NotNullAllowedException("remove method: the data is null");
+                throw new NotNullAllowedException();
             }
             Node<E> currentNode = head;
             if(currentNode==null){
@@ -113,10 +113,10 @@ public class DoubleList<E> implements List<E> { // nested class
     public void setAt(int position, E newData) {
 
         if(newData==null){
-            throw new NotNullAllowedException("remove method: the data is null");
+            throw new NotNullAllowedException();
         }
         if(position > size){
-            throw new IndexOutOfBoundsException(position+" is invalid");
+            throw new IndexOutOfBoundsException();
         }
         Node<E> currentNode = head;
         for(int i = 0; currentNode != null && i <position; i++){
@@ -131,7 +131,7 @@ public class DoubleList<E> implements List<E> { // nested class
     @Override
     public E getAt(int position) {
         if(position >= size || position<0){
-            throw new IndexOutOfBoundsException(position+" is invalid");
+            throw new IndexOutOfBoundsException();
         }
         Node<E> currentNode = head;
         for(int i = 0; currentNode != null && i <position; i++){
