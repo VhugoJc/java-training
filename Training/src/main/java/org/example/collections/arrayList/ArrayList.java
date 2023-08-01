@@ -42,6 +42,7 @@ public class ArrayList <E> implements List<E> {
         }
 
         if(size==array.length){ //increase the array
+            @SuppressWarnings("unchecked")
             E [] newArray = (E[]) Array.newInstance(genericClass,array.length*2); // auxiliary array
             int i=0 ;
             while (i<array.length) { // fill the array with old values
@@ -78,6 +79,7 @@ public class ArrayList <E> implements List<E> {
         }
         if(array.length/2==size && size>= 4) {
             int arrayLength = array.length/2;
+            @SuppressWarnings("unchecked")
             E [] newArray = (E[]) Array.newInstance(genericClass,arrayLength); // auxiliary array
             int i=0;
             while (i<arrayLength) { //fill the array with old values
