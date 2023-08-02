@@ -11,6 +11,19 @@ public class ArrayList <E> implements List<E> {
     private E[] array;
     private int size;
     private final Class<E> genericClass;
+    private final int arrayLength = 4;
+
+    public ArrayList(Class<E> genericClass) {
+        this.genericClass = genericClass;
+        resetArray();
+    }
+
+    private void resetArray(){
+        @SuppressWarnings("unchecked")
+        E [] auxArray = (E[]) Array.newInstance(genericClass,arrayLength);
+        array = auxArray;
+        size = 0;
+    }
     private  class ArrayListIterator implements Iterator<E> {
         private int index = 0;
         @Override
@@ -23,30 +36,18 @@ public class ArrayList <E> implements List<E> {
         }
     }
 
-    public ArrayList(Class<E> gClass) {
-        genericClass = gClass;
-        resetArray();
-    }
-
-    private void resetArray(){
-        @SuppressWarnings("unchecked")
-        E [] auxArray = (E[]) Array.newInstance(genericClass,4); // avoid check warning
-        array = auxArray;
-        size = 0;
-    }
-
     @Override
     public void add(E data) {
         if(data==null){
             throw new NotNullAllowedException();
         }
 
-        if(size==array.length){ //increase the array
+        if(size == array.length){ //increase the array
             @SuppressWarnings("unchecked")
             E [] newArray = (E[]) Array.newInstance(genericClass,array.length*2); // auxiliary array
             int i=0 ;
-            while (i<array.length) { // fill the array with old values
-                newArray[i]=array[i];
+            while (i < array.length) { // fill the array with old values
+                newArray[i] = array[i];
                 i++;
             }
             array = newArray; // replace with the bigger array
@@ -77,7 +78,7 @@ public class ArrayList <E> implements List<E> {
                 size--;
             }
         }
-        if(array.length/2==size && size>= 4) {
+        if(array.length/2 == size && size >= arrayLength) { // decrease the array length
             int arrayLength = array.length/2;
             @SuppressWarnings("unchecked")
             E [] newArray = (E[]) Array.newInstance(genericClass,arrayLength); // auxiliary array
