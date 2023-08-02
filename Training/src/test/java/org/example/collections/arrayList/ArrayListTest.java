@@ -11,7 +11,7 @@ import java.util.Optional;
 public class ArrayListTest {
     @Test
     public void testAddItems() {
-        ArrayList<Integer> newArrayList = new ArrayList<Integer>(Integer.class);
+        ArrayList<Integer> newArrayList = new ArrayList<Integer>();
         // Arrange
         newArrayList.add(5);
         newArrayList.add(4);
@@ -30,7 +30,7 @@ public class ArrayListTest {
     }
     @Test
     public void testDeleteItems(){
-        ArrayList<String> newArrayList = new ArrayList<String>(String.class);
+        ArrayList<String> newArrayList = new ArrayList<String>();
         // Arrange
         newArrayList.add("APPLE");
         newArrayList.add("BANANA");
@@ -48,8 +48,24 @@ public class ArrayListTest {
         Assertions.assertThrows(NotNullAllowedException.class, ()->newArrayList.remove(null));
     }
     @Test
+    public void testDeleteDuplicatedItems(){
+        ArrayList<String> newArrayList = new ArrayList<String>();
+        // Arrange
+        newArrayList.add("APPLE");
+        newArrayList.add("BANANA");
+        newArrayList.add("WATERMELON");
+        newArrayList.add("APPLE");
+        newArrayList.add("ORANGE");
+        newArrayList.add("PEAR");
+        newArrayList.add("APPLE");
+        // Act
+        newArrayList.remove("APPLE");
+        // Asserts
+        Assertions.assertEquals(4, newArrayList.size());
+    }
+    @Test
     public void testDeleteAllItems(){
-        ArrayList<Double> newArrayList = new ArrayList<Double>(Double.class);
+        ArrayList<Double> newArrayList = new ArrayList<Double>();
         // Arrange
         newArrayList.add(5.00023);
         newArrayList.add(4.99999);
@@ -62,7 +78,7 @@ public class ArrayListTest {
     }
     @Test
     public void testSetGetItems() {
-        ArrayList<Float> newArrayList = new ArrayList<Float>(Float.class);
+        ArrayList<Float> newArrayList = new ArrayList<Float>();
         // Arrange
         newArrayList.add(5.0f);
         newArrayList.add(4.0f);
@@ -78,7 +94,7 @@ public class ArrayListTest {
     }
     @Test
     public void testIterator(){
-        ArrayList<Integer> newArrayList = new ArrayList<Integer>(Integer.class);
+        ArrayList<Integer> newArrayList = new ArrayList<Integer>();
         // Arrange
         newArrayList.add(5);
         newArrayList.add(4);

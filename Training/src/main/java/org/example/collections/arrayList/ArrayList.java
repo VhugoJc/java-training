@@ -7,20 +7,20 @@ import org.example.collections.NotNullAllowedException;
 
 import java.lang.reflect.Array;
 
+
+
 public class ArrayList <E> implements List<E> {
     private E[] array;
     private int size;
-    private final Class<E> genericClass;
-    private final int arrayLength = 4;
+    private static final int INITIAL_LENGTH = 4;
 
-    public ArrayList(Class<E> genericClass) {
-        this.genericClass = genericClass;
+    public ArrayList() {
         resetArray();
     }
 
     private void resetArray(){
         @SuppressWarnings("unchecked")
-        E [] auxArray = (E[]) Array.newInstance(genericClass,arrayLength);
+        E [] auxArray = (E[]) new Object [INITIAL_LENGTH];
         array = auxArray;
         size = 0;
     }
@@ -42,9 +42,9 @@ public class ArrayList <E> implements List<E> {
             throw new NotNullAllowedException();
         }
 
-        if(size == array.length){ //increase the array
+        if(size == array.length){ //increase the array 1000
             @SuppressWarnings("unchecked")
-            E [] newArray = (E[]) Array.newInstance(genericClass,array.length*2); // auxiliary array
+            E [] newArray = (E[]) new Object [array.length << 1]; // auxiliary array
             int i=0 ;
             while (i < array.length) { // fill the array with old values
                 newArray[i] = array[i];
@@ -78,10 +78,10 @@ public class ArrayList <E> implements List<E> {
                 size--;
             }
         }
-        if(array.length/2 == size && size >= arrayLength) { // decrease the array length
+        if(array.length/2 == size && size >= INITIAL_LENGTH) { // decrease the array length
             int arrayLength = array.length/2;
             @SuppressWarnings("unchecked")
-            E [] newArray = (E[]) Array.newInstance(genericClass,arrayLength); // auxiliary array
+            E [] newArray = (E[]) new Object [arrayLength]; // auxiliary array
             int i=0;
             while (i<arrayLength) { //fill the array with old values
                 newArray[i]=array[i++];
