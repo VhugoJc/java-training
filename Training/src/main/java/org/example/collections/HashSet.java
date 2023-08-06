@@ -97,13 +97,12 @@ public class HashSet <E> implements Set<E> {
                 size--;
             }
         }
-
         if(size <= array.length / 2 && size >= INITIAL_LENGTH){
-
+            // decrease array length
             int newArrayLength = array.length >> 1 ;
             @SuppressWarnings("unchecked")
             E[] auxArray = (E[]) new Object[newArrayLength];
-
+            // reorganize element positions
             for(E e:array){
                 if(e != null){
                     int newPosition = Math.abs(e.hashCode()) % newArrayLength;
@@ -111,7 +110,7 @@ public class HashSet <E> implements Set<E> {
                         auxArray[newPosition] = e;
                         continue;
                     }
-                    // assign element to other position
+                    // find other empty position
                     while(auxArray[newPosition] != null){
                         newPosition = (newPosition + 1) % newArrayLength;
                     }
