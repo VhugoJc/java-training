@@ -1,4 +1,9 @@
-package org.example.collections;
+package org.example.collections.hashSet;
+
+import org.example.collections.Iterator;
+import org.example.collections.NotNullAllowedException;
+import org.example.collections.Set;
+
 public class HashSet <E> implements Set<E> {
     private E [] array;
     private int size;
@@ -129,6 +134,18 @@ public class HashSet <E> implements Set<E> {
     @Override
     public int size() {
         return size;
+    }
+
+    @Override
+    public Boolean contains(E element) {
+        boolean exists = false;
+        for(E e: array){
+            if(element == e){
+                exists = true;
+                break;
+            }
+        }
+        return exists;
     }
 
     @Override
