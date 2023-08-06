@@ -11,6 +11,7 @@ public class HashSetTest {
         list.add("World");
         list.add("htrgertgrt");
         list.add("3e");
+        list.remove("3e");
         Iterator<String> it = list.iterator();
         while (it.hasNext()){
             System.out.println(it.next());

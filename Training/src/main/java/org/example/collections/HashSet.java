@@ -27,11 +27,15 @@ public class HashSet <E> implements Set<E> {
         }
     }
 
-    public HashSet() {
+    private void resetArray () {
         @SuppressWarnings("unchecked")
         E[] auxArray = (E[]) new Object[INITIAL_LENGTH];
         array = auxArray;
         size = 0;
+    }
+
+    public HashSet() {
+        resetArray();
     }
 
     @Override
@@ -52,7 +56,7 @@ public class HashSet <E> implements Set<E> {
                     auxArray[newPosition] = e;
                     continue;
                 }
-                // find the next null position
+                // use the next empty position
                 while (auxArray[newPosition] != null) {
                     newPosition = (newPosition + 1) % newArrayLength;
                 }
@@ -82,13 +86,45 @@ public class HashSet <E> implements Set<E> {
     }
 
     @Override
-    public void remove(Object element) {
+    public void remove(E element) {
+        if(element == null){
+            throw new NotNullAllowedException();
+        }
+        // find element, "remove" it and decrease size
+        for(int i=0; i< array.length; i++) {
+            if(array[i] == element) {
+                array [i] = null;
+                size--;
+            }
+        }
 
+        if(size <= array.length / 2 && size >= INITIAL_LENGTH){
+
+            int newArrayLength = array.length >> 1 ;
+            @SuppressWarnings("unchecked")
+            E[] auxArray = (E[]) new Object[newArrayLength];
+
+            for(E e:array){
+                if(e != null){
+                    int newPosition = Math.abs(e.hashCode()) % newArrayLength;
+                    if(auxArray[newPosition]==null){ //if the element in that position is empty
+                        auxArray[newPosition] = e;
+                        continue;
+                    }
+                    // assign element to other position
+                    while(auxArray[newPosition] != null){
+                        newPosition = (newPosition + 1) % newArrayLength;
+                    }
+                    auxArray[newPosition] = e;
+                }
+            }
+            array = auxArray;
+        }
     }
 
     @Override
     public void removeAll() {
-
+        resetArray();
     }
 
     @Override
