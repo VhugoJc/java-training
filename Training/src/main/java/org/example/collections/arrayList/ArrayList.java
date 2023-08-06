@@ -1,4 +1,8 @@
-package org.example.collections;
+package org.example.collections.arrayList;
+
+import org.example.collections.Iterator;
+import org.example.collections.List;
+import org.example.collections.NotNullAllowedException;
 
 public class ArrayList <E> implements List<E> {
     private E[] array;

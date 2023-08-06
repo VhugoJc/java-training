@@ -1,8 +1,8 @@
-package org.example.collections;
+package org.example.collections.arrayList;
 
-import org.example.collections.ArrayList;
 import org.example.collections.Iterator;
 import org.example.collections.NotNullAllowedException;
+import org.example.collections.arrayList.ArrayList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
