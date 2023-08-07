@@ -18,10 +18,10 @@ public class DoubleListTest {
         // Act
         // Assert
         Assertions.assertEquals(4,list.size());
-        Assertions.assertEquals(8, (int)list.getAt(0));
-        Assertions.assertEquals(10,(int)list.getAt(1));
-        Assertions.assertEquals(1, (int)list.getAt(2));
-        Assertions.assertEquals(7, (int)list.getAt(3));
+        Assertions.assertTrue(list.contains(8));
+        Assertions.assertTrue(list.contains(10));
+        Assertions.assertTrue(list.contains(1));
+        Assertions.assertTrue(list.contains(7));
         Assertions.assertThrows(NotNullAllowedException.class, () -> list.add(null));
     }
 

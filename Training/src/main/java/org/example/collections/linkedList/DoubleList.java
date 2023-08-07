@@ -149,7 +149,7 @@ public class DoubleList<E> implements List<E> { // nested class
     public boolean contains(E element) {
         boolean exist = false;
         Node<E> currentNode = head;
-        while(currentNode.next != null){
+        while(currentNode != null){
             if(element == currentNode.data){
                 exist = true;
                 break;

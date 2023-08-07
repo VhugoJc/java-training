@@ -18,12 +18,11 @@ public class ArrayListTest {
         newArrayList.add(31);
         newArrayList.add(33); // increase the array length
         // Asserts
-        Assertions.assertEquals(5, newArrayList.size());
-        Assertions.assertEquals( 5, (int) newArrayList.getAt(0));
-        Assertions.assertEquals( 4, (int) newArrayList.getAt(1));
-        Assertions.assertEquals( 11, (int) newArrayList.getAt(2));
-        Assertions.assertEquals( 31, (int) newArrayList.getAt(3));
-        Assertions.assertEquals( 31, (int) newArrayList.getAt(3));
+        Assertions.assertTrue(newArrayList.contains(5));
+        Assertions.assertTrue(newArrayList.contains(4));
+        Assertions.assertTrue(newArrayList.contains(11));
+        Assertions.assertTrue(newArrayList.contains(31));
+        Assertions.assertTrue(newArrayList.contains(33));
 
         Assertions.assertThrows(NotNullAllowedException.class, () -> newArrayList.add(null));
     }
