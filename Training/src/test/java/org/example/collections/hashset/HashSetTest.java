@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 public class HashSetTest {
     @Test
-    public void TestAddItem (){
+    public void TestAddContainsItem (){
         HashSet<Integer> list = new HashSet<>();
         // Arrange
         list.add(12);
@@ -25,6 +25,20 @@ public class HashSetTest {
         Assertions.assertTrue(list.contains(56));
         Assertions.assertTrue(list.contains(7));
         Assertions.assertThrows(NotNullAllowedException.class, () -> list.add(null));
+    }
+    public void TestAddDuplicatedItems (){
+        HashSet<Integer> list = new HashSet<>();
+        // Arrange
+        list.add(12);
+        list.add(1);
+        list.add(4);
+        list.add(56);
+        list.add(7);
+        list.add(7);
+        list.add(7);
+        list.add(7);
+        // Assert
+        Assertions.assertEquals(4,list.size());
     }
 
     @Test

@@ -19,13 +19,12 @@ public class HashSet <E> implements Set<E> {
         @Override
         public E next() {
             int counter = 0;
-            // E[] arrayAux ?
             E value = null;
-            for (ArrayList<E> arrayList : array) {
-                if (arrayList != null) {
-                    for(int i = 0; i < arrayList.size() ; i++){
+            for (ArrayList<E> bucket : array) {
+                if (bucket != null) {
+                    for(int i = 0; i < bucket.size() ; i++){
                         if(index == counter++){
-                            value = arrayList.getAt(i);
+                            value = bucket.getAt(i);
                             break;
                         }
                     }
@@ -49,9 +48,9 @@ public class HashSet <E> implements Set<E> {
     private void changeArrayLength(int newArrayLength){
         @SuppressWarnings("unchecked")
         ArrayList<E> [] newArray = new ArrayList[newArrayLength];
-        for (ArrayList<E> a: array){
-            if(a != null) {
-                Iterator<E> it = a.iterator();
+        for (ArrayList<E> bucket: array){
+            if(bucket != null) {
+                Iterator<E> it = bucket.iterator();
                 while (it.hasNext()){
                     E currentElement = it.next();
                     int newPosition = getPosition(currentElement, newArrayLength);
@@ -102,9 +101,9 @@ public class HashSet <E> implements Set<E> {
         // find the position
         int position = getPosition(element, array.length);
         // get the bucket
-        ArrayList<E> arrayList = array[position];
-        if(arrayList!=null){
-            arrayList.remove(element); // remove the element
+        ArrayList<E> bucket = array[position];
+        if(bucket!=null){
+            bucket.remove(element); // remove the element
             size--;
         }
         if(size == array.length / 2 && size >= INITIAL_LENGTH){
@@ -127,8 +126,8 @@ public class HashSet <E> implements Set<E> {
     public boolean contains(E element) {
         boolean exists = false;
         int position = getPosition(element, array.length);
-        ArrayList<E> arrayList = array[position];
-        if (arrayList.contains(element)){
+        ArrayList<E> bucket = array[position];
+        if (bucket.contains(element)){
             exists = true;
         }
         return exists;
