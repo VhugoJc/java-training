@@ -3,9 +3,11 @@ package org.example.collections.hashSet;
 import org.example.collections.Iterator;
 import org.example.collections.NotNullAllowedException;
 import org.example.collections.Set;
+import org.example.collections.arrayList.ArrayList;
+
 
 public class HashSet <E> implements Set<E> {
-    private E [] array;
+    private ArrayList<E>[] array;
     private int size;
     private static final int INITIAL_LENGTH = 4;
     private class hashSetIterator implements Iterator<E> {
@@ -16,14 +18,16 @@ public class HashSet <E> implements Set<E> {
         }
         @Override
         public E next() {
-            int indexAux = 0;
+            int counter = 0;
             // E[] arrayAux ?
             E value = null;
-            for (E e : array) {
-                if (e != null) {
-                    if (indexAux++ == index) {
-                        value = e;
-                        break;
+            for (ArrayList<E> arrayList : array) {
+                if (arrayList != null) {
+                    for(int i = 0; i < arrayList.size() ; i++){
+                        if(index == counter++){
+                            value = arrayList.getAt(i);
+                            break;
+                        }
                     }
                 }
             }
@@ -34,11 +38,32 @@ public class HashSet <E> implements Set<E> {
 
     private void resetArray () {
         @SuppressWarnings("unchecked")
-        E[] auxArray = (E[]) new Object[INITIAL_LENGTH];
+        ArrayList <E> [] auxArray = new ArrayList[INITIAL_LENGTH];
         array = auxArray;
         size = 0;
     }
+    private int getPosition (E element, int length) {
+        return Math.abs(element.hashCode()) % length;
+    }
 
+    private void changeArrayLength(int newArrayLength){
+        @SuppressWarnings("unchecked")
+        ArrayList<E> [] newArray = new ArrayList[newArrayLength];
+        for (ArrayList<E> a: array){
+            if(a != null) {
+                Iterator<E> it = a.iterator();
+                while (it.hasNext()){
+                    E currentElement = it.next();
+                    int newPosition = getPosition(currentElement, newArrayLength);
+                    if (newArray[newPosition] == null ) {
+                        newArray[newPosition] = new ArrayList<>();
+                    }
+                    newArray[newPosition].add(currentElement);
+                }
+            }
+        }
+        array = newArray;
+    }
     public HashSet() {
         resetArray();
     }
@@ -50,43 +75,22 @@ public class HashSet <E> implements Set<E> {
             throw new NotNullAllowedException();
         }
         // check array size
-        if(size == array.length ){
-            // increase the array length
-            int newArrayLength = array.length << 1 ; // NEW_ARRAY_LENGTH ?
-            @SuppressWarnings("unchecked")
-            E[] auxArray = (E[]) new Object[newArrayLength];
-            for (E e : array) {
-                int newPosition = Math.abs(e.hashCode()) % newArrayLength;
-                if (auxArray[newPosition] == null) { // if the position is a null element
-                    auxArray[newPosition] = e;
-                    continue;
-                }
-                // use the next empty position
-                while (auxArray[newPosition] != null) {
-                    newPosition = (newPosition + 1) % newArrayLength;
-                }
-                auxArray[newPosition] = e;
-            }
-            array = auxArray;
+        if(size == array.length ){ // each bucket with
+            int newArrayLength = array.length << 1 ; // increase the array length
+            changeArrayLength(newArrayLength);
         }
         // get hash code
-        int position = Math.abs(element.hashCode()) % array.length;
+        int position = getPosition(element, array.length);
 
         // assign element
         if (array [position] == null){
-            array [position] = element;
-            size++;
-            return;
+            array [position] = new ArrayList<>();
         }
         // identify repeated element
-        if(array[position] == element){
+        if(array[position].contains(element)){
             return;
         }
-        // use the next empty position
-        while (array[position] != null) {
-            position = (position + 1) % array.length;
-        }
-        array[position] = element;
+        array[position].add(element);
         size++;
     }
 
@@ -95,34 +99,17 @@ public class HashSet <E> implements Set<E> {
         if(element == null){
             throw new NotNullAllowedException();
         }
-        // find element, "remove" it and decrease size
-        for(int i=0; i< array.length; i++) {
-            if(array[i] == element) {
-                array [i] = null;
-                size--;
-            }
+        // find the position
+        int position = getPosition(element, array.length);
+        // get the bucket
+        ArrayList<E> arrayList = array[position];
+        if(arrayList!=null){
+            arrayList.remove(element); // remove the element
+            size--;
         }
-        if(size <= array.length / 2 && size >= INITIAL_LENGTH){
-            // decrease array length
-            int newArrayLength = array.length >> 1 ;
-            @SuppressWarnings("unchecked")
-            E[] auxArray = (E[]) new Object[newArrayLength];
-            // reorganize element positions
-            for(E e:array){
-                if(e != null){
-                    int newPosition = Math.abs(e.hashCode()) % newArrayLength;
-                    if(auxArray[newPosition]==null){ //if the element in that position is empty
-                        auxArray[newPosition] = e;
-                        continue;
-                    }
-                    // find other empty position
-                    while(auxArray[newPosition] != null){
-                        newPosition = (newPosition + 1) % newArrayLength;
-                    }
-                    auxArray[newPosition] = e;
-                }
-            }
-            array = auxArray;
+        if(size == array.length / 2 && size >= INITIAL_LENGTH){
+            int newArrayLength = array.length >> 1 ; // decrease the array length
+            changeArrayLength(newArrayLength);
         }
     }
 
@@ -137,13 +124,12 @@ public class HashSet <E> implements Set<E> {
     }
 
     @Override
-    public Boolean contains(E element) {
+    public boolean contains(E element) {
         boolean exists = false;
-        for(E e: array){
-            if(element == e){
-                exists = true;
-                break;
-            }
+        int position = getPosition(element, array.length);
+        ArrayList<E> arrayList = array[position];
+        if (arrayList.contains(element)){
+            exists = true;
         }
         return exists;
     }

@@ -5,6 +5,6 @@ public interface Set <E>{
     void remove(E element);
     void removeAll(); //clear
     int size();
-    Boolean contains (E element);
+    boolean contains (E element);
     Iterator<E> iterator();
 }
