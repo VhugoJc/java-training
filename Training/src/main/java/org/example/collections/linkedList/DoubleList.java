@@ -146,6 +146,20 @@ public class DoubleList<E> implements List<E> { // nested class
     }
 
     @Override
+    public boolean contains(E element) {
+        boolean exist = false;
+        Node<E> currentNode = head;
+        while(currentNode.next != null){
+            if(element == currentNode.data){
+                exist = true;
+                break;
+            }
+            currentNode = currentNode.next;
+        }
+        return exist;
+    }
+
+    @Override
     public Iterator<E> iterator() {
         return new DoubleListIterator();
     }

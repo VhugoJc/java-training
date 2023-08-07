@@ -113,6 +113,19 @@ public class ArrayList <E> implements List<E> {
     }
 
     @Override
+    public boolean contains(E element) {
+        boolean exist = false;
+        for(E e: array){
+            if(e == element){
+                exist = true;
+                break;
+            }
+        }
+        return exist;
+    }
+
+
+    @Override
     public Iterator<E> iterator() {
         return new ArrayListIterator();
     }

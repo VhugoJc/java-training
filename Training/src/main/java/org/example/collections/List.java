@@ -7,5 +7,6 @@ public interface List <T>{
      void setAt (int position, T newData);
      T getAt(int position);
      int size ();
+     boolean contains (T element);
      Iterator<T> iterator();
 }
