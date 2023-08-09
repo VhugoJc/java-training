@@ -26,6 +26,7 @@ public class HashSetTest {
         Assertions.assertTrue(list.contains(7));
         Assertions.assertThrows(NotNullAllowedException.class, () -> list.add(null));
     }
+    @Test
     public void TestAddDuplicatedItems (){
         HashSet<Integer> list = new HashSet<>();
         // Arrange
@@ -38,7 +39,7 @@ public class HashSetTest {
         list.add(7);
         list.add(7);
         // Assert
-        Assertions.assertEquals(4,list.size());
+        Assertions.assertEquals(5,list.size());
     }
 
     @Test
@@ -82,10 +83,20 @@ public class HashSetTest {
         list.add(1.12f);
         list.add(4.99f);
         list.add(56.7f);
-        list.add(7.10f);
+        list.add(74.10f);
+        list.add(75.10f);
+        list.add(76.10f);
+        list.add(75.10f);
+        list.add(35.40f);
         // Act
         Iterator<Float> it = list.iterator();
         // Assert
+        Assertions.assertTrue(it.hasNext());
+        it.next();
+        Assertions.assertTrue(it.hasNext());
+        it.next();
+        Assertions.assertTrue(it.hasNext());
+        it.next();
         Assertions.assertTrue(it.hasNext());
         it.next();
         Assertions.assertTrue(it.hasNext());

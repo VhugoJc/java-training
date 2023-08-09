@@ -10,7 +10,7 @@ public class HashSet <E> implements Set<E> {
     private ArrayList<E>[] array;
     private int size;
     private static final int INITIAL_LENGTH = 4;
-    private class hashSetIterator implements Iterator<E> {
+    private class HashSetIterator implements Iterator<E> {
         private int index = 0;
         @Override
         public boolean hasNext() {
@@ -22,15 +22,13 @@ public class HashSet <E> implements Set<E> {
             E value = null;
             for (ArrayList<E> bucket : array) {
                 if (bucket != null) {
-                    for(int i = 0; i < bucket.size() ; i++){
-                        if(index == counter++){
-                            value = bucket.getAt(i);
-                            break;
-                        }
+                    if(index < (counter + bucket.size()) ){ //check if the index is within the bucket's range
+                        value = bucket.getAt(index++ - counter);// get the value using the array list method and increase the index variable
+                        break;
                     }
+                    counter += bucket.size();
                 }
             }
-            index++;
             return value;
         }
     }
@@ -44,7 +42,6 @@ public class HashSet <E> implements Set<E> {
     private int getPosition (E element, int length) {
         return Math.abs(element.hashCode()) % length;
     }
-
     private void changeArrayLength(int newArrayLength){
         @SuppressWarnings("unchecked")
         ArrayList<E> [] newArray = new ArrayList[newArrayLength];
@@ -66,7 +63,6 @@ public class HashSet <E> implements Set<E> {
     public HashSet() {
         resetArray();
     }
-
     @Override
     public void add(E element) {
         // valid null exception
@@ -92,7 +88,6 @@ public class HashSet <E> implements Set<E> {
         array[position].add(element);
         size++;
     }
-
     @Override
     public void remove(E element) {
         if(element == null){
@@ -111,30 +106,22 @@ public class HashSet <E> implements Set<E> {
             changeArrayLength(newArrayLength);
         }
     }
-
     @Override
     public void removeAll() {
         resetArray();
     }
-
     @Override
     public int size() {
         return size;
     }
-
     @Override
     public boolean contains(E element) {
-        boolean exists = false;
         int position = getPosition(element, array.length);
         ArrayList<E> bucket = array[position];
-        if (bucket.contains(element)){
-            exists = true;
-        }
-        return exists;
+        return bucket.contains(element);
     }
-
     @Override
     public Iterator<E> iterator() {
-        return new hashSetIterator();
+        return new HashSetIterator();
     }
 }
