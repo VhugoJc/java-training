@@ -116,9 +116,11 @@ public class ArrayList <E> implements List<E> {
     public boolean contains(E element) {
         boolean exist = false;
         for(E e: array){
-            if(e == element){
-                exist = true;
-                break;
+            if(e!=null){
+                if(e.equals(element)){
+                    exist = true;
+                    break;
+                }
             }
         }
         return exist;
