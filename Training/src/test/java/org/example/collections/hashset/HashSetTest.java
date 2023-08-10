@@ -2,7 +2,6 @@ package org.example.collections.hashset;
 
 import org.example.collections.Iterator;
 import org.example.collections.NotNullAllowedException;
-import org.example.collections.hashSet.HashSet;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -3,13 +3,13 @@ package org.example.collections.hashmap;
 import org.example.collections.Iterator;
 import org.example.collections.Map;
 import org.example.collections.NotNullAllowedException;
-import org.example.collections.arrayList.ArrayList;
+import org.example.collections.arraylist.ArrayList;
 
 import java.util.Objects;
 
 
 public class HashMap<K, V> implements Map<K,V> {
-    class Entry {
+    private class Entry { // inner class
         K key;
         V value;
 
@@ -22,13 +22,9 @@ public class HashMap<K, V> implements Map<K,V> {
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
+            @SuppressWarnings("unchecked")
             Entry entry = (Entry) o;
             return Objects.equals(key, entry.key);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(key);
         }
     }
     private ArrayList<Entry>[] array;
@@ -43,20 +39,17 @@ public class HashMap<K, V> implements Map<K,V> {
         @Override
         public V next() {
             int counter = 0;
-            Entry entry = null;
+            V value = null;
             for (ArrayList<Entry> bucket : array) {
                 if (bucket != null) {
-                    for(int i = 0; i < bucket.size() ; i++){
-                        if(index == counter++){
-                            entry = bucket.getAt(i);
-                            break;
-                        }
+                    if(index < (counter + bucket.size()) ){ //check if the index is within the bucket's range
+                        value = bucket.getAt(index++ - counter).value;// get the value using the array list method and increase the index variable
+                        break;
                     }
+                    counter += bucket.size();
                 }
             }
-            index++;
-            assert entry != null;
-            return entry.value;
+            return value;
         }
     }
     private void resetArray () {
@@ -102,9 +95,7 @@ public class HashMap<K, V> implements Map<K,V> {
         }
         // get hash code
         int position = getPosition(key, array.length);
-
-        // assign element
-        if (array [position] == null){
+        if (array [position] == null){ // assign element
             array [position] = new ArrayList<>();
         }
         // identify repeated element
@@ -115,17 +106,45 @@ public class HashMap<K, V> implements Map<K,V> {
         array[position].add(newEntry);
         size++;
     }
-
     @Override
     public V get(K key) {
-        return null;
-    }
+        if( key == null){
+            throw new NotNullAllowedException();
+        }
+        V value = null;
+        int position = getPosition(key, array.length);
 
+        if(array[position] != null){ // check if the bucket is not empty
+            Iterator<Entry> it = array[position].iterator();
+            while(it.hasNext()){
+                Entry entry = it.next();
+                if ( entry.equals(new Entry(key, null) ) ){
+                    value = entry.value;
+                    break;
+                }
+            }
+        }
+
+        return value;
+    }
     @Override
     public void remove(K key) {
-
+        if( key == null){
+            throw new NotNullAllowedException();
+        }
+        int position = getPosition(key, array.length);
+        if(array[position] != null){ // check if the bucket is not empty
+            Iterator<Entry> it = array[position].iterator();
+            while(it.hasNext()){
+                Entry entry = it.next();
+                if ( entry.equals(new Entry(key, null) ) ){
+                    array[position].remove(entry);
+                    size--;
+                    break;
+                }
+            }
+        }
     }
-
     @Override
     public void removeAll() {
         resetArray();
@@ -134,7 +153,6 @@ public class HashMap<K, V> implements Map<K,V> {
     public int size() {
         return size;
     }
-
     @Override
     public boolean containsKey(K key) {
         int position = getPosition(key, array.length);
@@ -142,7 +160,6 @@ public class HashMap<K, V> implements Map<K,V> {
         Entry element = new Entry(key, null);
         return bucket.contains(element);
     }
-
     @Override
     public Iterator<V> iterator() {
         return new HashSetIterator();

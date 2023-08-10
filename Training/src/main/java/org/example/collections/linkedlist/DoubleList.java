@@ -1,4 +1,4 @@
-package org.example.collections.linkedList;
+package org.example.collections.linkedlist;
 
 import org.example.collections.Iterator;
 import org.example.collections.List;

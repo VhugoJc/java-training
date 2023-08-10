@@ -1,4 +1,4 @@
-package org.example.collections.arrayList;
+package org.example.collections.arraylist;
 
 import org.example.collections.Iterator;
 import org.example.collections.NotNullAllowedException;

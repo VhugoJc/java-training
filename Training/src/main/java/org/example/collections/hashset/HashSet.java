@@ -1,9 +1,9 @@
-package org.example.collections.hashSet;
+package org.example.collections.hashset;
 
 import org.example.collections.Iterator;
 import org.example.collections.NotNullAllowedException;
 import org.example.collections.Set;
-import org.example.collections.arrayList.ArrayList;
+import org.example.collections.arraylist.ArrayList;
 
 
 public class HashSet <E> implements Set<E> {
