@@ -30,7 +30,7 @@ public class HashMap<K, V> implements Map<K,V> {
     private ArrayList<Entry>[] array;
     private int size;
     private static final int INITIAL_LENGTH = 4;
-    private class HashSetIterator implements Iterator<V> {
+    private class HashMapIterator implements Iterator<V> {
         private int index = 0;
         @Override
         public boolean hasNext() {
@@ -162,6 +162,6 @@ public class HashMap<K, V> implements Map<K,V> {
     }
     @Override
     public Iterator<V> iterator() {
-        return new HashSetIterator();
+        return new HashMapIterator();
     }
 }
